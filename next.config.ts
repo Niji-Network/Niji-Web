@@ -1,8 +1,22 @@
 import type { NextConfig } from "next";
+import withMDX from '@next/mdx';
 
 const nextConfig: NextConfig = {
-  /* config options here */
   reactStrictMode: true,
+  pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cdn.nijii.xyz',
+      },
+    ],
+  }
 };
 
-export default nextConfig;
+export default withMDX({
+  extension: /\.mdx?$/,
+  options: {
+    providerImportSource: '@mdx-js/react'
+  },
+})(nextConfig);
