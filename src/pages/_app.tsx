@@ -1,3 +1,4 @@
+import Sidebar from "@/components/Sidebar";
 import type { AppProps } from 'next/app';
 import SEO from '@/components/SEO';
 import '@/styles/globals.css';
@@ -12,6 +13,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 url="https://nijii.xyz"
                 image="/logo.png"
             />
+            <Sidebar />
             <Component {...pageProps} />
         </>
     )
