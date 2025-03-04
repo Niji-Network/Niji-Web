@@ -57,7 +57,7 @@ const LandingPage: NextPage<LandingPageProps> = ({ images: initialImages, stats:
 };
 
 export const getStaticProps: GetStaticProps<LandingPageProps> = async () => {
-  const imagesRes = await fetch("https://api.nijii.xyz/v1/img/random?size=5", {
+  const imagesRes = await fetch("https://api.nijii.xyz/v1/img/random?size=6", {
     headers: { "X-API-KEY": process.env.NEXT_PUBLIC_API_KEY as string },
   });
   const imagesData = await imagesRes.json();
