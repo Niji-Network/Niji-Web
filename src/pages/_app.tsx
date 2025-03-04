@@ -1,22 +1,18 @@
-import Sidebar from "@/components/Sidebar";
-import type { AppProps } from 'next/app';
-import SEO from '@/components/SEO';
-import '@/styles/globals.css';
+import Footer from "@/components/Footer";
+import type { AppProps } from "next/app";
+import Popup from "@/components/Popup";
+import dynamic from "next/dynamic";
+import "@/styles/globals.css";
 
-function MyApp({ Component, pageProps }: AppProps) {
-    return (
-        <>
-            <SEO
-                title="Niji API - Official Documentation"
-                description="Official documentation for Niji API, the modern, scalable anime image API. Explore endpoints, request examples, and more."
-                keywords="Niji API, Documentation, anime, endpoints, developer"
-                url="https://nijii.xyz"
-                image="/logo.png"
-            />
-            <Sidebar />
-            <Component {...pageProps} />
-        </>
-    )
-}
+const Sidebar = dynamic(() => import("@/components/Sidebar"), { ssr: false });
 
-export default MyApp
+const MyApp = ({ Component, pageProps }: AppProps) => (
+    <>
+        <Sidebar />
+                <Component {...pageProps} />
+            <Popup />
+        <Footer />
+    </>
+);
+
+export default MyApp;

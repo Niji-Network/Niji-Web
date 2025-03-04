@@ -1,19 +1,17 @@
 import { RandomImagesProps } from "@/utils/interfaces";
 import { motion } from "framer-motion";
-import React from "react";
 import Image from "next/image";
-
-
+import React from "react";
 
 const RandomImages: React.FC<RandomImagesProps> = ({ images, loadingImages, onImageClick }) => {
     return (
         <motion.section
-            className="mt-16"
+            className="mt-16 px-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
         >
-            <h2 className="text-3xl font-bold text-gray-100 mb-6 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-100 mb-8">
                 Random Anime Images
             </h2>
             {loadingImages ? (
@@ -23,17 +21,19 @@ const RandomImages: React.FC<RandomImagesProps> = ({ images, loadingImages, onIm
                     {images.map((img) => (
                         <motion.div
                             key={img._id}
-                            className="rounded overflow-hidden shadow-lg bg-gray-800 hover:shadow-2xl transition-all cursor-pointer"
-                            whileHover={{ scale: 1.05 }}
+                            className="rounded-xl overflow-hidden bg-gradient-to-br from-gray-800 to-gray-700 shadow-md hover:shadow-2xl transition-transform duration-300 cursor-pointer"
+                            whileHover={{ scale: 1.05, translateY: -5 }}
                             onClick={() => onImageClick(img)}
                         >
-                            <Image
-                                src={img.url}
-                                alt={img.category}
-                                className="w-full h-64 object-cover"
-                                width={200}
-                                height={200}
-                            />
+                            <div className="relative w-full h-64">
+                                <Image
+                                    src={img.url}
+                                    alt={img.category}
+                                    layout="fill"
+                                    objectFit="cover"
+                                    className="transition-transform duration-300 ease-in-out"
+                                />
+                            </div>
                             <div className="p-4">
                                 <h3 className="text-xl font-semibold text-gray-100">
                                     {img.anime || "Random Image"}

@@ -34,3 +34,39 @@ export interface RandomImagesProps {
     loadingImages: boolean;
     onImageClick: (img: Image) => void;
 }
+
+export interface SEOProps {
+    title: string;
+    description: string;
+    keywords?: string;
+    url?: string;
+    image?: string;
+    author?: string;
+    siteName?: string;
+    twitterHandle?: string;
+}
+
+export interface LandingPageProps {
+    images: Image[];
+    stats: Stats | null;
+}
+
+export interface TeamMember {
+    name: string;
+    role: string;
+    bio: string;
+    imageUrl: string;
+    github?: string;
+    bluesky?: string;
+    fiverr?: string;
+    domain?: string;
+}
+
+export interface Endpoint {
+    category: string;
+    path: string;
+    method: string;
+    summary: string;
+    description: string;
+    responseExample: string;
+}

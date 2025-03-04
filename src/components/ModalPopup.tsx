@@ -3,19 +3,17 @@ import { ModalPopupProps } from "@/utils/interfaces";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
-
 const ModalPopup: React.FC<ModalPopupProps> = ({ image, onClose }) => {
     const [copied, setCopied] = useState<boolean>(false);
 
     useEffect(() => {
-        if (image) {
-            document.body.style.overflow = "hidden";
-        } else {
+        document.body.style.overflow = image ? "hidden" : "";
+        return () => {
             document.body.style.overflow = "";
-        }
+        };
     }, [image]);
 
-    const handleBackgroundClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const handleBackgroundClick = () => {
         onClose();
     };
 
@@ -50,14 +48,14 @@ const ModalPopup: React.FC<ModalPopupProps> = ({ image, onClose }) => {
         <AnimatePresence>
             {image && (
                 <motion.div
-                    className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50"
+                    className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     onClick={handleBackgroundClick}
                 >
                     <motion.div
-                        className="bg-gray-900 p-6 rounded-lg w-11/12 md:w-1/2 lg:w-1/3 relative"
+                        className="relative w-11/12 max-w-lg rounded-lg bg-gray-900 p-6 shadow-lg md:w-1/2 lg:w-1/3"
                         initial={{ scale: 0.8 }}
                         animate={{ scale: 1 }}
                         exit={{ scale: 0.8 }}
@@ -66,18 +64,19 @@ const ModalPopup: React.FC<ModalPopupProps> = ({ image, onClose }) => {
                     >
                         <button
                             onClick={onClose}
-                            className="absolute top-2 right-2 text-gray-400 hover:text-gray-200 text-2xl"
+                            aria-label="Close modal"
+                            className="absolute top-2 right-2 text-2xl text-gray-400 hover:text-gray-200 focus:outline-none"
                         >
                             &times;
                         </button>
                         <Image
                             src={image.url}
-                            alt={image.category}
-                            className="w-full h-64 object-cover rounded-md"
-                            width={200}
-                            height={200}
+                            alt={image.category || "Image"}
+                            className="w-full rounded-md object-cover"
+                            width={400}
+                            height={300}
                         />
-                        <div className="mt-4 text-gray-100 space-y-2">
+                        <div className="mt-4 space-y-2 text-gray-100">
                             <p>
                                 <strong>Anime:</strong> {image.anime || "None"}
                             </p>
@@ -98,26 +97,28 @@ const ModalPopup: React.FC<ModalPopupProps> = ({ image, onClose }) => {
                         <div className="mt-6 flex flex-col items-center space-y-2">
                             <button
                                 onClick={handleDownload}
-                                className="w-full px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+                                className="w-full rounded bg-blue-600 px-4 py-2 text-white font-semibold shadow hover:bg-blue-700 transition-colors"
                             >
                                 Download
                             </button>
                             <button
                                 onClick={handleCopy}
-                                className="w-full px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors"
+                                className="w-full rounded bg-green-600 px-4 py-2 text-white font-semibold shadow hover:bg-green-700 transition-colors"
                             >
                                 Copy URL
                             </button>
-                            {copied && (
-                                <motion.div
-                                    className="text-sm text-green-400 mt-1"
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    exit={{ opacity: 0 }}
-                                >
-                                    Copied!
-                                </motion.div>
-                            )}
+                            <AnimatePresence>
+                                {copied && (
+                                    <motion.div
+                                        className="mt-1 text-sm text-green-400"
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
+                                    >
+                                        Copied!
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
                         </div>
                     </motion.div>
                 </motion.div>

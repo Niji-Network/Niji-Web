@@ -4,6 +4,15 @@ import withMDX from '@next/mdx';
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
+  async redirects() {
+    return [
+      {
+        source: "/discord",
+        destination: "https://discord.gg/G2uh75G4w7",
+        permanent: false,
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       {

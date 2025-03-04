@@ -1,14 +1,6 @@
+import { SEOProps } from "@/utils/interfaces";
 import Head from "next/head";
 import React from "react";
-
-interface SEOProps {
-    title: string;
-    description: string;
-    keywords?: string;
-    url?: string;
-    image?: string;
-    author?: string;
-}
 
 const SEO: React.FC<SEOProps> = ({
                                      title,
@@ -17,10 +9,24 @@ const SEO: React.FC<SEOProps> = ({
                                      url,
                                      image,
                                      author = "Niji API",
+                                     siteName = "Niji API",
+                                     twitterHandle = "@gonzyui",
                                  }) => {
+    const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        url: url,
+        name: title,
+        author: {
+            "@type": "Organization",
+            name: author,
+        },
+        description: description,
+    };
+
     return (
         <Head>
-            {/* Primary Meta Tags */}
+            {/* Page Title and Basic Meta */}
             <title>{title}</title>
             <meta name="title" content={title} />
             <meta name="description" content={description} />
@@ -31,24 +37,30 @@ const SEO: React.FC<SEOProps> = ({
             {/* Canonical URL */}
             {url && <link rel="canonical" href={url} />}
 
-            {/* Open Graph / Facebook */}
+            {/* Open Graph Meta Tags */}
+            <meta property="og:site_name" content={siteName} />
             {url && <meta property="og:url" content={url} />}
             <meta property="og:type" content="website" />
             <meta property="og:title" content={title} />
             <meta property="og:description" content={description} />
             {image && <meta property="og:image" content={image} />}
 
-            {/* Twitter */}
+            {/* Twitter Meta Tags */}
             <meta name="twitter:card" content="summary_large_image" />
+            {twitterHandle && <meta name="twitter:site" content={twitterHandle} />}
             <meta name="twitter:title" content={title} />
             <meta name="twitter:description" content={description} />
             {image && <meta name="twitter:image" content={image} />}
 
-            {/* Robots */}
+            {/* Robots & Favicon */}
             <meta name="robots" content="index, follow" />
-
-            {/* Favicon et autres liens */}
             <link rel="icon" href="/favicon.ico" />
+
+            {/* Structured Data */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
         </Head>
     );
 };
