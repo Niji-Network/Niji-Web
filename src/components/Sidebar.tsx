@@ -10,7 +10,7 @@ const navItems = [
     {
         name: "Discord",
         icon: <FaDiscord size={24} color="#fff" />,
-        link: "https://discord.gg/yourDiscordLink",
+        link: "/discord",
     },
 ];
 
