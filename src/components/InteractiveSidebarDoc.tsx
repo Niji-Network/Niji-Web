@@ -47,7 +47,7 @@ Usernames are unique.`,
     },
     {
         category: "Images",
-        path: "/v1/img/waifu",
+        path: "/v1/img/categories/waifu",
         method: "GET",
         summary: "Retrieve waifu images",
         description:
@@ -75,7 +75,40 @@ Usernames are unique.`,
     },
     {
         category: "Images",
-        path: "/v1/img/husbando",
+        path: "/v1/img/categories/maid",
+        method: "GET",
+        summary: "Retrieve maid images",
+        description:
+            "Retrieves images with the category 'maid', with optional NSFW filtering and pagination.",
+        responseExample:
+`{
+    "page": 1,
+    "size": 5,
+    "total": 1,
+    "items": [
+        {
+            "_id": "67c80afdbcf62ef5d94ff21a",
+            "url": "https://cdn.nijii.xyz/images/maid/56a88ee0-a473-4c09-9e59-fbec4ac2927a.jpg",
+            "category": "maid",
+            "anime": "Re:Zero",
+            "is_nsfw": false,
+            "characters": [
+                "Rem",
+                "Ram"
+            ],
+            "tags": [
+                "maid",
+                "cute",
+                "blue hair",
+                "pink hair"
+            ]
+        }
+    ]
+}`
+    },
+    {
+        category: "Images",
+        path: "/v1/img/categories/husbando",
         method: "GET",
         summary: "Retrieve husbando images",
         description:
