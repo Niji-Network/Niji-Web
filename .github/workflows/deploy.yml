@@ -25,9 +25,12 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.PORT }}
           script: |
-            cd /home/ubuntu/Niji-Web
+            cd /home/gonzyui/Niji-Web
             git pull origin main
-            npm install --production
+            pm2 delete nijiWeb
+            npm install
             npm run build
-            pm2 restart nijiWeb --update-env
+            pm2 start npm --name "nijiWeb" -- run start
+            pm2 save
